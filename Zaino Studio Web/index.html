@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZAINO studio — Más que un corte, una experiencia</title>
+  <meta name="description" content="ZAINO studio · Marca de servicios dentro del rubro barbería premium. Una experiencia de alto nivel basada en la precisión, el detalle y el asesoramiento profesional." />
+  <meta name="theme-color" content="#000000" />
+
+  <meta property="og:title" content="ZAINO studio — Barbería premium" />
+  <meta property="og:description" content="El verdadero lujo no es exceso, sino precisión. Reservá tu turno." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/img/logo.png" />
+
+  <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/img/logo.png" />
+
+  <!-- Tipografía: Bodoni Moda (alternativa web a Didót) + Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,500&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+
+  <!-- ====================== PRELOADER ====================== -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <img src="assets/img/logo.png" alt="ZAINO studio" class="preloader__logo" />
+    <div class="preloader__bar"><span></span></div>
+  </div>
+
+  <!-- ====================== HEADER ====================== -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="#inicio" class="header__brand" aria-label="ZAINO studio — inicio">
+        <img src="assets/img/logo.png" alt="ZAINO studio" class="header__logo" />
+      </a>
+
+      <nav class="nav" aria-label="Navegación principal">
+        <ul class="nav__list">
+          <li><a href="#inicio" class="nav__link">Inicio</a></li>
+          <li><a href="#servicios" class="nav__link">Servicios</a></li>
+          <li><a href="#coleccion" class="nav__link">Colección</a></li>
+          <li><a href="#experiencia" class="nav__link">Experiencia</a></li>
+          <li><a href="#contacto" class="nav__link">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <div class="header__actions">
+        <a href="#reserva" class="btn btn--solid btn--sm header__cta">Reservá tu turno</a>
+        <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ====================== MOBILE MENU ====================== -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <ul class="mobile-menu__list">
+      <li><a href="#inicio" class="mobile-menu__link">Inicio</a></li>
+      <li><a href="#servicios" class="mobile-menu__link">Servicios</a></li>
+      <li><a href="#coleccion" class="mobile-menu__link">Colección</a></li>
+      <li><a href="#experiencia" class="mobile-menu__link">Experiencia</a></li>
+      <li><a href="#contacto" class="mobile-menu__link">Contacto</a></li>
+    </ul>
+    <a href="#reserva" class="btn btn--solid mobile-menu__cta">Reservá tu turno</a>
+    <div class="mobile-menu__social" id="mobileSocial"></div>
+  </div>
+
+  <main>
+    <!-- ====================== HERO ====================== -->
+    <section class="hero" id="inicio">
+      <div class="hero__media">
+        <img src="assets/img/hero.jpg" alt="" class="hero__img" />
+        <div class="hero__overlay"></div>
+      </div>
+
+      <div class="container hero__content">
+        <p class="hero__eyebrow reveal">Barbería premium · Asesoramiento profesional</p>
+        <h1 class="hero__title reveal">
+          Más que un corte,<br /><span class="italic">una experiencia.</span>
+        </h1>
+        <p class="hero__lead reveal">
+          Una experiencia de alto nivel basada en la precisión, el detalle y el
+          asesoramiento profesional. Cada corte, pensado para representar la mejor
+          versión de quien lo lleva.
+        </p>
+        <div class="hero__actions reveal">
+          <a href="#reserva" class="btn btn--solid">Reservá tu turno</a>
+          <a href="#coleccion" class="btn btn--ghost">Ver la colección</a>
+        </div>
+
+        <div class="hero__stats reveal" id="heroStats"></div>
+      </div>
+
+      <a href="#servicios" class="hero__scroll" aria-label="Bajar"><span></span></a>
+    </section>
+
+    <!-- ====================== MARQUEE ====================== -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Estilo</span><i>✦</i><span>Precisión</span><i>✦</i><span>Detalle</span><i>✦</i>
+        <span>Estilo</span><i>✦</i><span>Precisión</span><i>✦</i><span>Detalle</span><i>✦</i>
+        <span>Estilo</span><i>✦</i><span>Precisión</span><i>✦</i><span>Detalle</span><i>✦</i>
+        <span>Estilo</span><i>✦</i><span>Precisión</span><i>✦</i><span>Detalle</span><i>✦</i>
+      </div>
+    </div>
+
+    <!-- ====================== SERVICIOS ====================== -->
+    <section class="section services" id="servicios">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="section__eyebrow">Servicios</p>
+          <h2 class="section__title">Cada servicio, un análisis profesional</h2>
+          <p class="section__sub">
+            Cada servicio es el resultado de un análisis profesional, donde el
+            asesoramiento personalizado define decisiones pensadas para cada cliente.
+          </p>
+        </header>
+
+        <div class="services__grid" id="servicesGrid"></div>
+      </div>
+    </section>
+
+    <!-- ====================== COLECCIÓN 2026 ====================== -->
+    <section class="section collection" id="coleccion">
+      <div class="container">
+        <header class="section__head section__head--wide reveal">
+          <p class="section__eyebrow">Colección ZAINO studio 2026</p>
+          <h2 class="section__title">Cortes masculinos tendencia</h2>
+          <p class="section__sub">
+            El detalle en cada corte no es solo una cuestión estética, sino una
+            expresión de técnica, dedicación y conocimiento. Elegí tu referencia
+            y llevala a tu turno.
+          </p>
+        </header>
+
+        <div class="collection__grid" id="collectionGrid"></div>
+
+        <p class="collection__note reveal">
+          ¿No sabés cuál elegir? En el turno lo definimos juntos.
+          <a href="#reserva">Reservá y consultá →</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ====================== EXPERIENCIA / CÓMO FUNCIONA ====================== -->
+    <section class="section experience" id="experiencia">
+      <div class="container experience__grid">
+        <div class="experience__media reveal">
+          <img src="assets/img/experience.jpg" alt="La experiencia ZAINO studio" loading="lazy" />
+          <div class="experience__badge">
+            <span class="experience__badge-num">ZAINO</span>
+            <span class="experience__badge-label">Studio</span>
+          </div>
+        </div>
+
+        <div class="experience__text">
+          <p class="section__eyebrow reveal">La experiencia</p>
+          <h2 class="section__title reveal">El verdadero lujo no es exceso,<br />sino precisión</h2>
+          <p class="experience__p reveal">
+            Desde el primer momento, la experiencia está diseñada para transmitir
+            exclusividad, confianza y profesionalismo. La atención, el ambiente y el
+            trato forman parte de un todo coherente, donde cada interacción refuerza
+            el valor de la marca.
+          </p>
+          <p class="experience__p reveal">
+            ZAINO studio no ofrece simplemente un servicio de barbería, sino una
+            experiencia construida sobre el detalle, la precisión y una visión
+            moderna del lujo. El verdadero lujo no es exceso, sino precisión.
+          </p>
+
+          <ul class="experience__list">
+            <li class="reveal"><span class="dot"></span> Barberos profesionales</li>
+            <li class="reveal"><span class="dot"></span> Productos premium</li>
+            <li class="reveal"><span class="dot"></span> Ambiente exclusivo</li>
+            <li class="reveal"><span class="dot"></span> Atención personalizada</li>
+          </ul>
+
+          <a href="#reserva" class="btn btn--solid reveal">Viví la experiencia</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== GALERÍA ====================== -->
+    <section class="section gallery" id="galeria">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="section__eyebrow">Galería</p>
+          <h2 class="section__title">El detalle se nota</h2>
+        </header>
+
+        <div class="gallery__grid">
+          <figure class="gallery__item gallery__item--tall reveal"><img src="assets/img/gallery-1.jpg" alt="Corte en proceso" loading="lazy" /></figure>
+          <figure class="gallery__item reveal"><img src="assets/img/gallery-2.jpg" alt="Detalle de trabajo" loading="lazy" /></figure>
+          <figure class="gallery__item reveal"><img src="assets/img/gallery-3.jpg" alt="Productos de cuidado" loading="lazy" /></figure>
+          <figure class="gallery__item gallery__item--wide reveal"><img src="assets/img/gallery-4.jpg" alt="Ambiente de trabajo" loading="lazy" /></figure>
+          <figure class="gallery__item reveal"><img src="assets/img/gallery-5.jpg" alt="Identidad ZAINO studio" loading="lazy" /></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== RESERVA (WhatsApp) ====================== -->
+    <section class="section reserve" id="reserva">
+      <div class="container reserve__grid">
+        <div class="reserve__intro">
+          <p class="section__eyebrow reveal">Reservá</p>
+          <h2 class="section__title reveal">Tu turno,<br />a un mensaje</h2>
+          <p class="reserve__lead reveal">
+            La reserva online es el canal principal de acceso al servicio.
+            Atención exclusiva, por turnos y con asesoramiento personalizado.
+          </p>
+
+          <ul class="reserve__points">
+            <li class="reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 6 9 17l-5-5"/></svg> Confirmación directa por WhatsApp</li>
+            <li class="reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 6 9 17l-5-5"/></svg> Atención exclusiva y por turnos</li>
+            <li class="reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 6 9 17l-5-5"/></svg> Asesoramiento personalizado en cada turno</li>
+          </ul>
+
+          <div class="reserve__hours reveal">
+            <h4>Horarios de atención</h4>
+            <ul id="hoursList"></ul>
+          </div>
+        </div>
+
+        <div class="reserve__card reveal">
+          <form class="booking" id="bookingForm" novalidate>
+            <h3 class="booking__title">Reservá tu turno</h3>
+
+            <div class="field">
+              <label for="bk-service">Servicio</label>
+              <div class="select-wrap">
+                <select id="bk-service" name="service" required>
+                  <option value="" disabled selected>Elegí un servicio</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="bk-cut">Corte de referencia <span class="optional">(opcional)</span></label>
+              <div class="select-wrap">
+                <select id="bk-cut" name="cut">
+                  <option value="" selected>Lo definimos en el turno</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="bk-date">Fecha</label>
+                <input type="date" id="bk-date" name="date" required />
+              </div>
+              <div class="field">
+                <label for="bk-time">Hora</label>
+                <div class="select-wrap">
+                  <select id="bk-time" name="time" required>
+                    <option value="" disabled selected>Horario</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="bk-name">Nombre</label>
+              <input type="text" id="bk-name" name="name" placeholder="Tu nombre" required autocomplete="name" />
+            </div>
+
+            <div class="field">
+              <label for="bk-note">Nota <span class="optional">(opcional)</span></label>
+              <textarea id="bk-note" name="note" rows="2" placeholder="¿Algo que debamos saber?"></textarea>
+            </div>
+
+            <p class="booking__error" id="bookingError" role="alert" hidden></p>
+
+            <button type="submit" class="btn btn--whatsapp booking__submit">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.5-.7-2.4-1.3-3.4-3-.3-.4.3-.4.7-1.3.1-.2 0-.4 0-.5 0-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 2.6 1.1 3.1.9 3.7.8.6-.1 1.7-.7 2-1.4.2-.6.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7L7 20.4A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
+              Reservar por WhatsApp
+            </button>
+
+            <p class="booking__fineprint">Te abriremos WhatsApp con tu reserva lista para enviar.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== CONTACTO ====================== -->
+    <section class="section contact" id="contacto">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="section__eyebrow">Contacto</p>
+          <h2 class="section__title">Te esperamos</h2>
+          <p class="section__sub">
+            Escribinos por WhatsApp y te respondemos con disponibilidad y todos
+            los detalles de tu turno.
+          </p>
+        </header>
+
+        <div class="contact__grid">
+          <div class="contact__info">
+            <div class="contact__block reveal" id="addressBlock">
+              <h4>Dirección</h4>
+              <p id="addressText">—</p>
+              <a href="#" id="mapsLink" class="link-arrow" target="_blank" rel="noopener">Cómo llegar →</a>
+            </div>
+
+            <div class="contact__block reveal">
+              <h4>Horarios</h4>
+              <ul id="hoursList2"></ul>
+            </div>
+
+            <div class="contact__block reveal">
+              <h4>Contacto</h4>
+              <p><a href="#" id="phoneLink">—</a></p>
+              <div class="contact__social" id="contactSocial"></div>
+            </div>
+          </div>
+
+          <div class="contact__map reveal" id="mapWrap">
+            <iframe id="mapFrame" title="Ubicación de ZAINO studio" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ====================== FOOTER ====================== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img src="assets/img/logo.png" alt="ZAINO studio" class="footer__logo" />
+        <p class="footer__tagline">El verdadero lujo no es exceso, sino precisión.</p>
+      </div>
+
+      <nav class="footer__nav" aria-label="Pie de página">
+        <a href="#servicios">Servicios</a>
+        <a href="#coleccion">Colección</a>
+        <a href="#experiencia">Experiencia</a>
+        <a href="#reserva">Reservá</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+
+      <div class="footer__social" id="footerSocial"></div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container">
+        <span>© <span id="year"></span> ZAINO studio. Todos los derechos reservados.</span>
+        <span class="footer__credit">Barbería premium · Estilo · Precisión · Detalle</span>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" id="floatWa" class="float-wa" aria-label="Escribinos por WhatsApp" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.5-.7-2.4-1.3-3.4-3-.3-.4.3-.4.7-1.3.1-.2 0-.4 0-.5 0-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 2.6 1.1 3.1.9 3.7.8.6-.1 1.7-.7 2-1.4.2-.6.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7L7 20.4A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
+  </a>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
