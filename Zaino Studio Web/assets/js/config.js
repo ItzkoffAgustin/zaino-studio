@@ -18,7 +18,7 @@ window.ZAINO = {
 
   business: {
     name: "ZAINO studio",
-    phoneDisplay: "598 92 373 427",   // ⬅️ como se muestra en pantalla
+    phoneDisplay: "92 373 427",   // ⬅️ como se muestra en pantalla
 
     /* --- UBICACIÓN --------------------------------------------------
        ⚠️ PENDIENTE: estos datos son de ejemplo. Poné la dirección real
@@ -26,7 +26,7 @@ window.ZAINO = {
        y el mapa (el manual de marca pide no comunicar una sede fija).  */
     address: "16 DE Marzo de 1984 Manzana 63 Solar 9, Solymar",          // ⬅️ CAMBIAR
     city: "Ciudad de la Costa, Canelones, Uruguay", // ⬅️ CAMBIAR
-    mapQuery: "Solymar, Ciudad de la Costa, Canelones, Uruguay", // ⬅️ CAMBIAR
+    mapQuery: "16 de Marzo de 1984 Manzana 63 Solar 9 Solymar, Ciudad de la Costa, Canelones, Uruguay", // ⬅️ CAMBIAR
   },
 
   /* --- Cifras del hero ----------------------------------------------
