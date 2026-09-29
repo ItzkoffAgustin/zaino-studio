@@ -297,7 +297,7 @@
       `🙍 Nombre: ${name}`,
       note ? `📝 Nota: ${note}` : null,
       "",
-      "¿Me confirmás disponibilidad y ubicación? ¡Gracias!",
+      "¿Me confirmás disponibilidad? ¡Gracias!",
     ].filter(Boolean).join("\n");
 
     window.open(waUrl(msg), "_blank");
