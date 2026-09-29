@@ -18,13 +18,13 @@ window.ZAINO = {
 
   business: {
     name: "ZAINO studio",
-    phoneDisplay: "092 373 427",   // ⬅️ como se muestra en pantalla
+    phoneDisplay: "598 92 373 427",   // ⬅️ como se muestra en pantalla
 
     /* --- UBICACIÓN --------------------------------------------------
        ⚠️ PENDIENTE: estos datos son de ejemplo. Poné la dirección real
        antes de publicar, o dejá address: "" para ocultar la dirección
        y el mapa (el manual de marca pide no comunicar una sede fija).  */
-    address: "Av. Ejemplo 1234, Solymar",          // ⬅️ CAMBIAR
+    address: "16 DE Marzo de 1984 Manzana 63 Solar 9, Solymar",          // ⬅️ CAMBIAR
     city: "Ciudad de la Costa, Canelones, Uruguay", // ⬅️ CAMBIAR
     mapQuery: "Solymar, Ciudad de la Costa, Canelones, Uruguay", // ⬅️ CAMBIAR
   },
@@ -33,8 +33,8 @@ window.ZAINO = {
      ⚠️ PENDIENTE: son valores de ejemplo. Confirmá los reales con el
      barbero antes de publicar (o poné stats: [] para ocultarlas).      */
   stats: [
-    { value: 12,   suffix: "",  label: "Años de oficio" },        // ⬅️ CONFIRMAR
-    { value: 8000, suffix: "+", label: "Cortes realizados" },     // ⬅️ CONFIRMAR
+    { value: 10,   suffix: "",  label: "Años de oficio" },        // ⬅️ CONFIRMAR
+    { value: 10000, suffix: "+", label: "Cortes realizados" },     // ⬅️ CONFIRMAR
     { value: 100,  suffix: "%", label: "Atención personalizada" },
   ],
 
@@ -48,12 +48,12 @@ window.ZAINO = {
   /* --- Horarios de atención ----------------------------------------
      "Cerrado" marca el día como cerrado (no genera turnos).            */
   hours: [
-    { day: "Lunes",     open: "10:00", close: "20:00" },
-    { day: "Martes",    open: "10:00", close: "20:00" },
-    { day: "Miércoles", open: "10:00", close: "20:00" },
-    { day: "Jueves",    open: "10:00", close: "20:00" },
-    { day: "Viernes",   open: "10:00", close: "21:00" },
-    { day: "Sábado",    open: "09:00", close: "18:00" },
+    { day: "Lunes",     open: "10:00", close: "19:00" },
+    { day: "Martes",    open: "10:00", close: "19:00" },
+    { day: "Miércoles", open: "10:00", close: "19:00" },
+    { day: "Jueves",    open: "10:00", close: "19:00" },
+    { day: "Viernes",   open: "10:00", close: "19:00" },
+    { day: "Sábado",    open: "10:00", close: "19:00" },
     { day: "Domingo",   open: "Cerrado", close: "Cerrado" },
   ],
 
