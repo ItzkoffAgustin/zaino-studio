@@ -290,12 +290,12 @@
     const msg = [
       `Hola ${b.name || "ZAINO studio"}! 👋 Quiero reservar un turno:`,
       "",
-      `✂️ Servicio: ${service}`,
+      `Servicio: ${service}`,
       cut ? `💈 Corte de referencia: ${cut}` : null,
-      `📅 Fecha: ${pretty}`,
-      `🕐 Hora: ${time}`,
-      `🙍 Nombre: ${name}`,
-      note ? `📝 Nota: ${note}` : null,
+      `Fecha: ${pretty}`,
+      `Hora: ${time}`,
+      `Nombre: ${name}`,
+      note ? `Nota: ${note}` : null,
       "",
       "¿Me confirmás disponibilidad? ¡Gracias!",
     ].filter(Boolean).join("\n");
