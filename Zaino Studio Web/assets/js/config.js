@@ -18,7 +18,7 @@ window.ZAINO = {
 
   business: {
     name: "ZAINO studio",
-    phoneDisplay: "92 373 427",   // ⬅️ como se muestra en pantalla
+    phoneDisplay: "92373427",   // ⬅️ como se muestra en pantalla
 
     /* --- UBICACIÓN --------------------------------------------------
        ⚠️ PENDIENTE: estos datos son de ejemplo. Poné la dirección real
