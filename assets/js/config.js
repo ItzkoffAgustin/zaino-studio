@@ -16,6 +16,11 @@ window.ZAINO = {
      Ej: el celular 092 625 804  ->  "59892625804"                      */
   whatsapp: "59892373427",
 
+  /* --- Dirección del sitio publicado --------------------------------
+     Se usa para armar el link de cancelación que va en el WhatsApp.
+     Si algún día cambiás el dominio, cambialo acá (con https:// y / al final). */
+  siteUrl: "https://zainostudio.netlify.app/",
+
   business: {
     name: "ZAINO studio",
     phoneDisplay: "598 92 373 427",   // ⬅️ como se muestra en pantalla

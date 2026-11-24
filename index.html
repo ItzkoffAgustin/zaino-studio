@@ -154,11 +154,11 @@
     <section class="section experience" id="experiencia">
       <div class="container experience__grid">
         <div class="experience__media reveal">
+          <p class="section__eyebrow experience__eyebrow" data-txt="experienciaEtiqueta">La experiencia</p>
           <img src="assets/img/experience.jpg" alt="La experiencia ZAINO studio" loading="lazy" />
         </div>
 
         <div class="experience__text">
-          <p class="section__eyebrow reveal" data-txt="experienciaEtiqueta">La experiencia</p>
           <h2 class="section__title reveal" data-txt="experienciaTitulo">Viví el momento<br />que diseñamos para vos.</h2>
           <p class="experience__p reveal" data-txt="experienciaTexto1">Desde el primer momento, la experiencia está diseñada para transmitir exclusividad, confianza y profesionalismo. La atención, el ambiente y el trato forman parte de un todo coherente, donde cada interacción refuerza el valor de la marca.</p>
           <p class="experience__p reveal" data-txt="experienciaTexto2">ZAINO studio no ofrece simplemente un servicio de barbería, sino una experiencia construida sobre datos reales de nuestros clientes que pasaron por nuestras manos o siguen confiando su imagen al día de hoy, los cuales fuimos recolectando para darte una verdadera atención.</p>
@@ -216,6 +216,8 @@
             <h4>Horarios de atención</h4>
             <ul id="hoursList"></ul>
           </div>
+
+          <button type="button" class="link-arrow cancel-open reveal" id="cancelOpen">¿Necesitás cancelar tu turno? →</button>
         </div>
 
         <div class="reserve__card reveal">
@@ -266,6 +268,7 @@
             </div>
 
             <p class="booking__error" id="bookingError" role="alert" hidden></p>
+            <div class="booking__ok" id="bookingOk" role="status" hidden></div>
 
             <button type="submit" class="btn btn--whatsapp booking__submit">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.5-.7-2.4-1.3-3.4-3-.3-.4.3-.4.7-1.3.1-.2 0-.4 0-.5 0-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 2.6 1.1 3.1.9 3.7.8.6-.1 1.7-.7 2-1.4.2-.6.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7L7 20.4A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
@@ -340,6 +343,29 @@
       </div>
     </div>
   </footer>
+
+  <!-- ====================== CANCELAR TURNO ====================== -->
+  <div class="cancel" id="cancelPanel" role="dialog" aria-modal="true" aria-labelledby="cancelTitle" hidden>
+    <div class="cancel__box">
+      <button type="button" class="cancel__close" id="cancelClose" aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <p class="section__eyebrow">Tu turno</p>
+      <h3 class="cancel__title" id="cancelTitle">Cancelar turno</h3>
+
+      <form class="cancel__form" id="cancelForm" novalidate>
+        <div class="field">
+          <label for="cx-code">Código de reserva</label>
+          <input type="text" id="cx-code" placeholder="ZS-XXXXX" autocomplete="off" autocapitalize="characters" spellcheck="false" />
+        </div>
+        <button type="submit" class="btn btn--ghost cancel__find">Buscar mi turno</button>
+        <p class="cancel__hint">El código está en el mensaje de WhatsApp que enviaste al reservar.</p>
+      </form>
+
+      <div class="cancel__info" id="cancelInfo" hidden></div>
+      <p class="booking__error" id="cancelError" role="alert" hidden></p>
+    </div>
+  </div>
 
   <a href="#" id="floatWa" class="float-wa" aria-label="Escribinos por WhatsApp" target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-1.5-.7-2.4-1.3-3.4-3-.3-.4.3-.4.7-1.3.1-.2 0-.4 0-.5 0-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 2.6 1.1 3.1.9 3.7.8.6-.1 1.7-.7 2-1.4.2-.6.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7L7 20.4A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>

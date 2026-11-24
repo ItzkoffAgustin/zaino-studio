@@ -20,7 +20,9 @@
   const localDateStr = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
   const parseLocal = (str) => { const [y, m, d] = str.split("-").map(Number); return new Date(y, m - 1, d); };
   const waNumber = (CFG.whatsapp || "").replace(/\D/g, "");
-  const waUrl = (text) => `https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`;
+  // Se usa api.whatsapp.com/send en vez de wa.me: wa.me hace una redirección que
+  // rompe los emojis (salen como "�"), sobre todo en WhatsApp de computadora.
+  const waUrl = (text) => `https://api.whatsapp.com/send?phone=${waNumber}&text=${encodeURIComponent(text)}`;
   const b = CFG.business || {};
 
   /* ================= PRELOADER ================= */
@@ -244,6 +246,30 @@
     buildDots();
   })();
 
+  /* ================= BOTONES que siguen al cursor ================= */
+  // Solo en compu (mouse) y si la persona no pidió menos animaciones.
+  // FUERZA: cuánto se mueve hacia el cursor (0.3 = 30 %). MAX: tope en píxeles.
+  (() => {
+    const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!fine || calm) return;
+    const SEL = ".btn, .carousel__btn";
+    const FUERZA = 0.3, MAX = 10;
+    let active = null;
+    const reset = (el) => { el.style.removeProperty("--mx"); el.style.removeProperty("--my"); };
+    document.addEventListener("pointermove", (e) => {
+      const el = e.target.closest ? e.target.closest(SEL) : null;
+      if (active && active !== el) { reset(active); active = null; }
+      if (!el) return;
+      active = el;
+      const r = el.getBoundingClientRect();
+      const clamp = (v) => Math.max(-MAX, Math.min(MAX, v));
+      el.style.setProperty("--mx", `${clamp((e.clientX - (r.left + r.width / 2)) * FUERZA)}px`);
+      el.style.setProperty("--my", `${clamp((e.clientY - (r.top + r.height / 2)) * FUERZA)}px`);
+    }, { passive: true });
+    document.documentElement.addEventListener("pointerleave", () => { if (active) { reset(active); active = null; } });
+  })();
+
   /* ================= NAV activo ================= */
   const navLinks = $$(".nav__link");
   const sectionMap = {};
@@ -343,6 +369,16 @@
   dateInput.max = localDateStr(maxDate);
 
   const showError = (msg) => { errorBox.textContent = msg; errorBox.hidden = !msg; };
+  const okBox = $("#bookingOk");
+  const showOk = (html) => { if (!okBox) return; okBox.innerHTML = html || ""; okBox.hidden = !html; };
+  // Link de cancelación: usa la dirección fija del sitio (config.js → siteUrl),
+  // así funciona aunque la página se haya abierto desde otro lado.
+  const siteBase = (() => {
+    const u = String(CFG.siteUrl || "").trim();
+    if (/^https?:\/\//i.test(u)) return u.endsWith("/") ? u : u + "/";
+    return /^https?:$/.test(location.protocol) ? `${location.origin}${location.pathname}` : "https://zainostudio.netlify.app/";
+  })();
+  const cancelLink = (codigo) => `${siteBase}?cancelar=${encodeURIComponent(codigo)}`;
 
   const LEGACY_DUR = 45; // largo de un turno si la planilla no informa duración
 
@@ -426,6 +462,7 @@
   form.addEventListener("submit", async (ev) => {
     ev.preventDefault();
     showError("");
+    showOk("");
 
     if (waNumber.length < 8) {
       return showError("⚠️ Falta configurar el número de WhatsApp en config.js para activar las reservas.");
@@ -446,7 +483,8 @@
       weekday: "long", day: "numeric", month: "long", year: "numeric",
     });
 
-    const msg = [
+    // El código de reserva lo devuelve la planilla; con él se puede cancelar desde la web
+    const buildMsg = (codigo) => [
       `Hola ${b.name || "ZAINO studio"}! 👋 Quiero reservar un turno:`,
       "",
       `✂️ Servicio: ${service}`,
@@ -455,12 +493,16 @@
       `🕐 Hora: ${time}`,
       `🙍 Nombre: ${name}`,
       note ? `📝 Nota: ${note}` : null,
+      codigo ? `🔑 Código de reserva: ${codigo}` : null,
       "",
       "¿Me confirmás disponibilidad y ubicación? ¡Gracias!",
-    ].filter(Boolean).join("\n");
+      codigo ? "" : null,
+      codigo ? "❌ Si necesito cancelar, entro acá:" : null,
+      codigo ? cancelLink(codigo) : null,
+    ].filter((x) => x !== null).join("\n"); // los "" quedan como líneas en blanco
 
     const api = CFG.booking?.api;
-    if (!api) { window.open(waUrl(msg), "_blank"); return; } // sin API: modo anterior
+    if (!api) { window.open(waUrl(buildMsg()), "_blank"); return; } // sin API: modo anterior
 
     const btn = form.querySelector("button[type=submit]");
     if (btn) btn.disabled = true;
@@ -486,6 +528,11 @@
         await buildSlots(date);
         return;
       }
+      const msg = buildMsg(res.codigo);
+      if (res.codigo) {
+        showOk(`¡Turno guardado! Tu código de reserva es <strong>${esc(res.codigo)}</strong>. ` +
+          `Va también en el mensaje de WhatsApp. Si no podés venir, <a href="${esc(cancelLink(res.codigo))}">cancelalo desde acá</a>.`);
+      }
       if (wa) wa.location.href = waUrl(msg); else window.location.href = waUrl(msg);
       delete busyCache[date];
       await buildSlots(date); // el turno recién tomado desaparece de la lista
@@ -496,4 +543,129 @@
       if (btn) btn.disabled = false;
     }
   });
+
+  /* ================= CANCELAR TURNO ================= */
+  // Se abre con el link ?cancelar=CÓDIGO (va en el WhatsApp de la reserva)
+  // o con el botón "¿Necesitás cancelar tu turno?" de la sección Reservá.
+  (() => {
+    const panel = $("#cancelPanel");
+    if (!panel) return;
+    const api = CFG.booking?.api;
+    const openBtn = $("#cancelOpen");
+    if (!api) { panel.remove(); openBtn?.remove(); return; } // sin planilla no se puede cancelar
+
+    const formC = $("#cancelForm");
+    const codeInput = $("#cx-code");
+    const info = $("#cancelInfo");
+    const err = $("#cancelError");
+    const findBtn = formC.querySelector("button[type=submit]");
+    const showErr = (t) => { err.textContent = t || ""; err.hidden = !t; };
+    const prettyDate = (s) => parseLocal(s).toLocaleDateString("es-UY", { weekday: "long", day: "numeric", month: "long" });
+    let lastFocus = null;
+
+    const open = (code) => {
+      lastFocus = document.activeElement;
+      panel.hidden = false;
+      document.body.style.overflow = "hidden";
+      formC.hidden = false; info.hidden = true; info.innerHTML = ""; showErr("");
+      if (code) { codeInput.value = code; lookup(code); } else setTimeout(() => codeInput.focus(), 50);
+    };
+    const close = () => {
+      panel.hidden = true;
+      document.body.style.overflow = "";
+      if (new URLSearchParams(location.search).has("cancelar")) history.replaceState(null, "", location.pathname + location.hash);
+      lastFocus?.focus?.();
+    };
+    $("#cancelClose").addEventListener("click", close);
+    panel.addEventListener("click", (e) => { if (e.target === panel) close(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !panel.hidden) close(); });
+    openBtn?.addEventListener("click", () => open());
+
+    const ERR = {
+      "no-encontrado": "No encontramos un turno con ese código. Revisalo e intentá de nuevo.",
+      "ya-cancelado": "Este turno ya estaba cancelado.",
+      "pasado": "Este turno ya pasó, así que no se puede cancelar.",
+    };
+
+    const showTurno = (t, codigo) => {
+      formC.hidden = true;
+      info.hidden = false;
+      info.innerHTML = `
+        <dl>
+          <dt>Servicio</dt><dd>${esc(t.servicio)}</dd>
+          <dt>Fecha</dt><dd>${esc(prettyDate(t.fecha))}</dd>
+          <dt>Hora</dt><dd>${esc(t.hora)}</dd>
+          <dt>Nombre</dt><dd>${esc(t.nombre)}</dd>
+        </dl>
+        <p>¿Seguro que querés cancelarlo? El horario queda libre para otra persona.</p>
+        <div class="cancel__actions">
+          <button type="button" class="btn btn--danger" id="cxConfirm">Sí, cancelar turno</button>
+          <button type="button" class="btn btn--ghost" id="cxBack">No, mantener turno</button>
+        </div>`;
+      $("#cxBack").addEventListener("click", close);
+      $("#cxConfirm").addEventListener("click", () => confirm(codigo, t));
+    };
+
+    const showDone = (t, codigo) => {
+      const aviso = [
+        `Hola ${b.name || "ZAINO studio"}! Cancelé mi turno desde la web:`,
+        "",
+        `✂️ Servicio: ${t.servicio}`,
+        `📅 Fecha: ${prettyDate(t.fecha)}`,
+        `🕐 Hora: ${t.hora}`,
+        `🙍 Nombre: ${t.nombre}`,
+        `🔑 Código: ${codigo}`,
+      ].join("\n");
+      info.innerHTML = `
+        <div class="cancel__done">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>
+          <p>Tu turno del <strong>${esc(prettyDate(t.fecha))}</strong> a las <strong>${esc(t.hora)}</strong> quedó cancelado.</p>
+          <div class="cancel__actions">
+            ${waNumber ? `<a class="btn btn--whatsapp" href="${esc(waUrl(aviso))}" target="_blank" rel="noopener">Avisar por WhatsApp</a>` : ""}
+            <a class="btn btn--ghost" href="#reserva" id="cxNew">Reservar otro turno</a>
+          </div>
+        </div>`;
+      $("#cxNew").addEventListener("click", close);
+      if (dateInput.value === t.fecha) { delete busyCache[t.fecha]; buildSlots(t.fecha); }
+    };
+
+    async function lookup(raw) {
+      const codigo = String(raw || "").trim().toUpperCase();
+      if (!codigo) return showErr("Escribí tu código de reserva.");
+      showErr(""); findBtn.disabled = true; findBtn.textContent = "Buscando…";
+      try {
+        const res = await (await fetch(`${api}?codigo=${encodeURIComponent(codigo)}`)).json();
+        if (!res.ok) return showErr(ERR[res.error] || "No pudimos buscar el turno. Probá de nuevo.");
+        if (res.turno.estado === "cancelado") return showErr(ERR["ya-cancelado"]);
+        if (res.pasado) return showErr(ERR.pasado);
+        showTurno(res.turno, codigo);
+      } catch (e) {
+        showErr("No pudimos buscar el turno. Revisá tu conexión y probá de nuevo.");
+      } finally {
+        findBtn.disabled = false; findBtn.textContent = "Buscar mi turno";
+      }
+    }
+
+    async function confirm(codigo, t) {
+      const btnC = $("#cxConfirm");
+      btnC.disabled = true; btnC.textContent = "Cancelando…"; showErr("");
+      try {
+        const res = await (await fetch(api, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ accion: "cancelar", codigo }),
+        })).json();
+        if (!res.ok) { btnC.disabled = false; btnC.textContent = "Sí, cancelar turno"; return showErr(ERR[res.error] || "No pudimos cancelar el turno. Probá de nuevo."); }
+        showDone(res.turno || t, codigo);
+      } catch (e) {
+        btnC.disabled = false; btnC.textContent = "Sí, cancelar turno";
+        showErr("No pudimos cancelar el turno. Revisá tu conexión y probá de nuevo.");
+      }
+    }
+
+    formC.addEventListener("submit", (e) => { e.preventDefault(); lookup(codeInput.value); });
+
+    const fromUrl = new URLSearchParams(location.search).get("cancelar");
+    if (fromUrl) open(fromUrl);
+  })();
 })();
